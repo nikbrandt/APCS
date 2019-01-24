@@ -6,6 +6,8 @@
 
 # macOS files
 .DS_Store
+._*
+__MACOSX/*
 
 # JetBrains IDE files
 .idea/*
