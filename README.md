@@ -1,9 +1,11 @@
 # AP CS A
 All my AP Computer Science A projects; Edhesive and otherwise.
 
-In the `Edhesive` directory, all lessons, assignments, and labs from Edhesive are contained.  
-In the `Classwork` directory, all assigned classwork from my teacher is contained.  
-In the `Projects` directory, any project ideas, usually incomplete, are stored.
+Directory setup is as follows:  
+`Edhesive`: All assigned lessons and assignments from Edhesive  
+`Labs`: Any labs from CollegeBoard  
+`Classwork`: Assigned classwork from my teacher  
+`Projects`: Project ideas (unassigned, unrelated to the course), likely incomplete, of mine
 
 My Edhesive notes - 
 [Term 1](https://docs.google.com/document/d/1M6Rls4UQYV9ClJXALKBT052FmIh1V8FyzfhAzY3juFg/edit?usp=sharing)
