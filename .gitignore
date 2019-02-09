@@ -16,3 +16,7 @@ __MACOSX/*
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
+
+# CollegeBoard lab extra files
+**/doc/*
+**/resources/*
