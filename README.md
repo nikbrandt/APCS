@@ -13,6 +13,10 @@ and [Term 2](https://docs.google.com/document/d/1-3BIyxFoaHIHK9gwf9uO1_WD_g7jn5U
 
 These notes are only based on the lesson summaries, and as such likely do not contain enough information to learn from. In fact, there's barely enough information to understand the lesson; just enough for me to jog my memory about the contents of it. I wouldn't rely on 'em, as they were taken by someone (me) who already understood the fundamentals of a different programming language (JavaScript).
 
+I'm happy to help with any Java questions (or perhaps even JavaScript) that you may have, you'll just have to find a way to contact me. (Shouldn't be too hard.)
+
 Enjoy.
 
  \- Gymnophoria, 2018-19
+
+###### if anyone has an issue/question/problem/whatever with this repository, feel free to [open an issue](https://github.com/Gymnophoria/APCS/issues)
