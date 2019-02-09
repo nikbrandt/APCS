@@ -39,20 +39,7 @@ class Test extends Frame {
      System.out.println("Numbers: " + groupOne + ", " + groupTwo + ", " + groupThree);*/ // regex ^
     
     
-    try {
-      String line;
-      // for linux Process p = Runtime.getRuntime().exec("ps -e");
-      Process p = Runtime.getRuntime().exec
-        (System.getenv("windir") +"\\system32\\"+"tasklist.exe");
-      BufferedReader input =
-        new BufferedReader(new InputStreamReader(p.getInputStream()));
-      while ((line = input.readLine()) != null) {
-        System.out.println(line); //<-- Parse data here.
-      }
-      input.close();
-    } catch (Exception err) {
-      err.printStackTrace();
-    }
+    System.out.println(Double.parseDouble("1."));
     
   }
   
