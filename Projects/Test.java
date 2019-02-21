@@ -39,7 +39,10 @@ class Test extends Frame {
      System.out.println("Numbers: " + groupOne + ", " + groupTwo + ", " + groupThree);*/ // regex ^
     
     
-    System.out.println(Double.parseDouble("1."));
+    Integer a = new Integer(3);
+    Integer b = new Integer(23423);
+    
+    System.out.println(a.compareTo(b));
     
   }
   
