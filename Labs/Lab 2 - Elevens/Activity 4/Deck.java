@@ -29,8 +29,14 @@ class Deck {
     return size;
   }
   
-  public void shuffle() {
-    // do cool things
+  public void shuffle() { // 3/5/19
+    for (int i = cards.size() - 1; i >= 0; i--) {
+      int random = (int)(Math.random() * i);
+      Card temp = cards.get(i);
+      
+      cards.set(random, cards.get(i));
+      cards.set(i, temp);
+    }
   }
   
   public Card deal() {
