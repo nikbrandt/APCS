@@ -20,3 +20,7 @@ __MACOSX/*
 # CollegeBoard lab extra files
 **/doc/*
 **/resources/*
+
+# Termux compilation files
+**/oat/*
+*.dex
