@@ -44,6 +44,10 @@ class Test extends Frame {
     
     System.out.println(a.compareTo(b));
     
+    int[] thing = new int[4];
+    
+    System.out.println(thing[2]);
+    
   }
   
   public static boolean mystery(int nums[]) {
