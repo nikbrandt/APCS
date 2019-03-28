@@ -1,5 +1,7 @@
 // Nikolas Brandt, 3/5/19
 
+import java.util.ArrayList;
+
 public class DeckTester {
  public static void main(String[] args) {
   String[] ranks = {"jack", "queen", "king"};
@@ -55,5 +57,32 @@ public class DeckTester {
   
   Deck deck = new Deck(ranks, suits, pointValues);
   System.out.println(deck);
+
+  System.out.println("\n\nDuplicates:");
+  ArrayList<String> list = new ArrayList<String>();
+  boolean printed = false;
+
+  while (!deck.isEmpty()) {
+	list.add(deck.deal().toString());
+  }
+
+  for (int i = 0; i < list.size() - 1; i++) {
+	if (list.size() <= i) break;
+
+	int count = 0;
+	String cur = list.get(i);
+
+	do {
+		list.remove(cur);
+		count++;
+	} while (list.contains(cur));
+
+	if (count > 1) {
+		System.out.println("\t" + cur + "\t" + count + "x");
+		printed = true;
+	}
+  }
+
+  if (!printed) System.out.println("\tnone.");
  }
 }

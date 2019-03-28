@@ -33,9 +33,9 @@ class Deck {
     for (int i = cards.size() - 1; i >= 0; i--) {
       int random = (int)(Math.random() * i);
       Card temp = cards.get(i);
-      
-      cards.set(random, cards.get(i));
-      cards.set(i, temp);
+     
+      cards.set(i, cards.get(random));
+      cards.set(random, temp);
     }
   }
   
