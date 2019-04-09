@@ -10,7 +10,7 @@ import java.awt.event.*;
  */
 
 class Tetris {
-  public static void main (String str[]) {
+  public static void main (String str[]) throws Exception {
     new Game();
   }
 }
@@ -21,7 +21,7 @@ class Game {
   private GridBagConstraints con = new GridBagConstraints();
   Container pane;
   
-  Game() {
+  Game() throws Exception {
     frame = new JFrame("Tetris");
     /*ImageIcon yellowPiece = new ImageIcon("assets\\images\\yellowSingle.png");
     JLabel yellowPieceLabel = new JLabel(yellowPiece);
@@ -42,7 +42,7 @@ class Game {
     frame.revalidate();
   }
   
-  private void menu () {
+  private void menu () throws Exception {
     JButton button;
     
     button = new JButton("clear test");
@@ -70,7 +70,7 @@ class Game {
     
     button.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        sound.pause();
+        sound.stop();
       }
     });
 /* to add listeners

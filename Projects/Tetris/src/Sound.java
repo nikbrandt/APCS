@@ -24,7 +24,7 @@ public class Sound {
   }
 }*/
 
-import javafx.scene.media.MediaPlayer;
+/*import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.Media;
 import java.io.File;
 
@@ -43,5 +43,30 @@ public class Sound {
   
   public void pause() {
     player.pause();
+  }
+}
+*/
+import java.net.URL;
+import java.applet.AudioClip;
+import java.applet.Applet;
+import java.io.File;
+
+public class Sound {
+  private static final String BASE_PATH = new File("").getAbsolutePath();
+  
+  private AudioClip clip;
+  
+  Sound() throws Exception {
+    URL url = new URL("file:/" + BASE_PATH + "/assets/audio/theme.wav");
+    
+    clip = Applet.newAudioClip(url);
+  }
+  
+  public void play() {
+    clip.play();
+  }
+  
+  public void stop() {
+    clip.stop();
   }
 }

@@ -1,12 +1,15 @@
 import java.util.ArrayList;
 
 class Crossword {
+  private final boolean DEBUG = true;
+  
   private Board board;
   private ArrayList<Word> words;
   private ArrayList<Word> copy;
   
   public static void main (String str[]) {
-    Crossword cs = new Crossword(10, 10, "hello", "there", "mother", "dad", "father");
+    // Crossword cs = new Crossword(10, 10, "hello", "there", "mother", "dad", "father");
+    Crossword cs = new Crossword(3, 3, "cat", "hat");
   }
   
   Crossword() {
@@ -30,41 +33,47 @@ class Crossword {
       words.add(new Word(wordList[i]));
     }
     
-    System.out.println("Crossward initialized with words:\n" + words);
-    System.out.println("Adding words..");
+    if (DEBUG) System.out.println("Crossward initialized with words:\n" + words);
+    if (DEBUG) System.out.println("Adding words..");
     
     initialize();
   }
   
   private void initialize() {
     copy = new ArrayList<Word>(words);
-    System.out.println("Word\tLength\tMax X\tMax Y");
+    if (DEBUG) System.out.println("Word\tLength");
     
     for (Word word: words) {
       int length = word.length();
-      int maxX = board.getWidth() - length - 1;
-      int maxY = board.getHeight() - length - 1;
       
-      System.out.println(word + "\t" + length + "\t" + maxX + "\t" + maxY);
+      if (DEBUG) System.out.println("\n" + word + "\t" + length);
       
       int count = 0;
       while (true) {
-        if (count > 100) {
-          System.out.println("Could not find place for word: " + word);
+        if (count > 1000) {
+          if (DEBUG) System.out.println("Could not find place for word: " + word);
           break;
         }
         
+        boolean randDir = (int)(Math.random() * 2) == 1 ? true : false;
+        
+        int maxX = randDir ? board.getWidth() - length - 1 : board.getWidth() - 1;
+        int maxY = randDir ? board.getHeight() - 1 : board.getHeight() - length - 1;
+        
         int randX = (int)(Math.random() * (maxX + 1));
         int randY = (int)(Math.random() * (maxY + 1));
-        boolean randDir = (int)(Math.random() * 2) == 1 ? true : false;
+        
         // where true = x, false = y
-        if (board.isBlank(length, randX, randY, randDir)) { // continue here
+        if (DEBUG) System.out.print("\t " + randX + ", " + randY + (randDir ? " in x direction: " : " in y direction: "));
+        if (board.isBlank(word, randX, randY, randDir)) { // continue here
           word.setX(randX);
           word.setY(randY);
           word.setDir(randDir);
           board.addWord(word);
+          if (DEBUG) System.out.println("\n" + board);
           break;
         }
+        if (DEBUG) System.out.println();
         
         count++;
       }
@@ -76,6 +85,8 @@ class Crossword {
 }
 
 class Board {
+  private final boolean DEBUG = true;
+  
   private int minHeight = 2;
   private int minWidth = 2;
   private int maxHeight = 50;
@@ -112,13 +123,36 @@ class Board {
   }
   
   // true = x, false = y direction
-  public boolean isBlank(int length, int x, int y, boolean dir) {
+  public boolean isBlank(Word word, int x, int y, boolean dir) {
+    int length = word.length();
     for (int i = 0; i < length; i++) {
-      if (dir) // x
-        if (!board.get(y).get(x + i).isBlank()) return false;
-      else // y
-        if (!board.get(y + i).get(x).isBlank()) return false;
+      if (dir) {// x
+        if (DEBUG) System.out.print("" + board.get(y).get(x + i) + " ");
+        if (!board.get(y).get(x + i).isBlank() // location is not blank and
+              && !board.get(y).get(x + i).getValue().equals(word.getWord().substring(i, i + 1)) // char at location != word's char at location and
+              && board.get(y).get(x + i).getWord() != null // tile has word and 
+              && board.get(y).get(x + i).getWord().getDir() == dir) return false; // direction is the same
+        if (y - 1 >= 0 && !board.get(y - 1).get(x + i).isBlank()) return false;
+        if (y + 1 < height && !board.get(y + 1).get(x + i).isBlank()) return false;
+      } else { // y
+        if (DEBUG) System.out.print("" + board.get(y + i).get(x) + " ");
+        if (!board.get(y + i).get(x).isBlank() 
+              && !board.get(y + i).get(x).getValue().equals(word.getWord().substring(i, i + 1)) 
+              && board.get(y + i).get(x).getWord() != null
+              && board.get(y + i).get(x).getWord().getDir() == dir) return false;
+        if (x - 1 >= 0 && !board.get(y + i).get(x - 1).isBlank()) return false;
+        if (x + 1 < width && !board.get(y + i).get(x + 1).isBlank()) return false;
+      }
     }
+    
+    if (dir) {
+      if (x - 1 >= 0 && !board.get(y).get(x - 1).isBlank()) return false;
+      if (x + length < width && !board.get(y).get(x + length).isBlank()) return false;
+    } else {
+      if (y - 1 >= 0 && !board.get(y - 1).get(x).isBlank()) return false;
+      if (y + length < height && !board.get(y + length).get(x).isBlank()) return false;
+    }
+    
     return true;
   }
   
@@ -213,6 +247,7 @@ class Word {
 
 class Tile {
   private String value;
+  private Word word;
   
   Tile() {
     value = "";
@@ -223,9 +258,21 @@ class Tile {
     else value = val.substring(0, 1);
   }
   
+  public void setWord(Word word) {
+    this.word = word;
+  }
+  
+  public Word getWord() {
+    return word;
+  }
+  
   public boolean isBlank() {
     if (value.length() == 0) return true;
     return false;
+  }
+  
+  public String getValue() {
+    return value;
   }
   
   public String toString () {
