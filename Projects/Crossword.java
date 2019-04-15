@@ -127,7 +127,12 @@ class Board {
     int length = word.length();
     for (int i = 0; i < length; i++) {
       if (dir) {// x
-        if (DEBUG) System.out.print("" + board.get(y).get(x + i) + " ");
+        if (DEBUG) System.out.print("" + board.get(y).get(x + i) + " " + word.getWord().substring(i, i + 1) + " ");
+        if (DEBUG) System.out.print("" + (!board.get(y).get(x + i).isBlank() // location is not blank and
+              && !board.get(y).get(x + i).getValue().equals(word.getWord().substring(i, i + 1)) // char at location != word's char at location and
+              && board.get(y).get(x + i).getWord() != null // tile has word and 
+              && board.get(y).get(x + i).getWord().getDir() == dir) + " ");
+        
         if (!board.get(y).get(x + i).isBlank() // location is not blank and
               && !board.get(y).get(x + i).getValue().equals(word.getWord().substring(i, i + 1)) // char at location != word's char at location and
               && board.get(y).get(x + i).getWord() != null // tile has word and 
@@ -135,7 +140,11 @@ class Board {
         if (y - 1 >= 0 && !board.get(y - 1).get(x + i).isBlank()) return false;
         if (y + 1 < height && !board.get(y + 1).get(x + i).isBlank()) return false;
       } else { // y
-        if (DEBUG) System.out.print("" + board.get(y + i).get(x) + " ");
+        if (DEBUG) System.out.print("" + board.get(y + i).get(x) + " " + word.getWord().substring(i, i + 1) + " ");
+        if (DEBUG) System.out.print("" + (!board.get(y + i).get(x).isBlank() 
+              && !board.get(y + i).get(x).getValue().equals(word.getWord().substring(i, i + 1)) 
+              && board.get(y + i).get(x).getWord() != null
+              && board.get(y + i).get(x).getWord().getDir() == dir) + " ");
         if (!board.get(y + i).get(x).isBlank() 
               && !board.get(y + i).get(x).getValue().equals(word.getWord().substring(i, i + 1)) 
               && board.get(y + i).get(x).getWord() != null
@@ -144,6 +153,8 @@ class Board {
         if (x + 1 < width && !board.get(y + i).get(x + 1).isBlank()) return false;
       }
     }
+
+    if (DEBUG) System.out.print("^");
     
     if (dir) {
       if (x - 1 >= 0 && !board.get(y).get(x - 1).isBlank()) return false;
