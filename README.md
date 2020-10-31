@@ -13,7 +13,7 @@ and [Term 2](https://docs.google.com/document/d/1-3BIyxFoaHIHK9gwf9uO1_WD_g7jn5U
 
 These notes are only based on the lesson summaries, and as such likely do not contain enough information to learn from. In fact, there's barely enough information to understand the lesson; just enough for me to jog my memory about the contents of it. I wouldn't rely on 'em, as they were taken by someone (me) who already understood the fundamentals of a different programming language (JavaScript).
 
-I'm happy to help with any Java (or perhaps even JavaScript) questions that you may have. My Discord tag is Gymnophoria#8146, or you can open an issue, or whatever, I dunno.
+I'm happy to help with any Java (or perhaps even JavaScript) questions that you may have. My Discord tag is Gymnophoria#1337, or you can open an issue, or whatever, I dunno.
 
 Enjoy.
 
